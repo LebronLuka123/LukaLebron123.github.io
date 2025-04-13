@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Atharv AI</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        #chat { border: 1px solid #ddd; height: 400px; overflow-y: scroll; padding: 10px; margin-bottom: 10px; }
+        .user { color: blue; text-align: right; }
+        .ai { color: green; }
+        #input { width: 70%; padding: 8px; }
+        button { padding: 8px 15px; background: #4285F4; color: white; border: none; }
+    </style>
+</head>
+<body>
+    <h1>Atharv AI</h1>
+    <div id="chat"></div>
+    <input type="text" id="input" placeholder="Ask me anything...">
+    <button onclick="sendMessage()">Send</button>
+
+    <script>
+    const knowledge = {
+        "hello": ["Hello! I'm Atharv AI", "Hi there!"],
+        "how are you": ["I'm functioning perfectly!", "All systems optimal!"],
+        "default": ["Interesting question...", "Let me think about that"]
+    };
+
+    function sendMessage() {
+        const input = document.getElementById("input").value.toLowerCase();
+        const chat = document.getElementById("chat");
+        
+        chat.innerHTML += `<div class="user">You: ${input}</div>`;
+        
+        setTimeout(() => {
+            let response = knowledge.default[0];
+            for (const [key, replies] of Object.entries(knowledge)) {
+                if (input.includes(key)) {
+                    response = replies[Math.floor(Math.random() * replies.length)];
+                    break;
+                }
+            }
+            chat.innerHTML += `<div class="ai">Atharv AI: ${response}</div>`;
+            chat.scrollTop = chat.scrollHeight;
+        }, 800);
+        
+        document.getElementById("input").value = "";
+    }
+    </script>
+</body>
+</html>
